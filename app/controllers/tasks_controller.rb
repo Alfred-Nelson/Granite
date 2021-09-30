@@ -2,6 +2,6 @@
 
 class TasksController < ApplicationController
   def index
-    render html: "This is index action of Tasks controller"
+    render
   end
 end
