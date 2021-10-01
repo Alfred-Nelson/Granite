@@ -9,6 +9,8 @@ import Dashboard from "components/Dashboard";
 import PageLoader from "components/PageLoader";
 import CreateTask from "components/Tasks/CreateTask";
 
+import ShowTask from "./components/Tasks/ShowTask";
+
 const App = () => {
   const [loading, setLoading] = useState(true);
 
@@ -30,6 +32,7 @@ const App = () => {
     <Router>
       <ToastContainer />
       <Switch>
+        <Route exact path="/tasks/:slug/show" component={ShowTask} />
         <Route exact path="/tasks/create" component={CreateTask} />
         <Route exact path="/dashboard" component={Dashboard} />
       </Switch>

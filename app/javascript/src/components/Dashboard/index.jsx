@@ -7,7 +7,7 @@ import Container from "components/Container";
 import PageLoader from "components/PageLoader";
 import Table from "components/Tasks/Table";
 
-const Dashboard = () => {
+const Dashboard = ({ history }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +25,10 @@ const Dashboard = () => {
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  const showTask = slug => {
+    history.push(`/tasks/${slug}/show`);
+  };
 
   if (loading) {
     return (
@@ -46,7 +50,7 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <Table data={tasks} />
+      <Table data={tasks} showTask={showTask} />
     </Container>
   );
 };
