@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :load_task, only: %i[show update]
+  before_action :load_task, only: %i[show update destroy]
 
   def index
     @tasks = Task.all
@@ -27,6 +27,14 @@ class TasksController < ApplicationController
       render status: :ok, json: { notice: "Task successfully updated" }
     else
       render status: :unprocessable_entity, json: { error: task.errors.full_messages.to_sentance }
+    end
+  end
+
+  def destroy
+    if @task.destroy
+      render status: :ok, json: { notice: "Task has been deleted" }
+    else
+      render status: :unprocessable_entity, json: { error: @task.errors.full_messages.to_sentance }
     end
   end
 
