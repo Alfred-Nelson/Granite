@@ -31,7 +31,7 @@
 
 en:
   hello: "Hello world"
-  success: "Task was successfully created"
+  success: "%{entity} successfully created"
   not_found: "Task not found"
   task:
     slug:

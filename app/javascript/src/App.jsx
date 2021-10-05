@@ -9,6 +9,7 @@ import Dashboard from "components/Dashboard";
 import PageLoader from "components/PageLoader";
 import CreateTask from "components/Tasks/CreateTask";
 
+import Signup from "./components/Authentication/Signup";
 import EditTask from "./components/Tasks/EditTask";
 import ShowTask from "./components/Tasks/ShowTask";
 
@@ -33,10 +34,16 @@ const App = () => {
     <Router>
       <ToastContainer />
       <Switch>
+        <Route
+          exact
+          path="/"
+          component={({ history }) => <>{history.push("/dashboard")}</>}
+        />
         <Route exact path="/tasks/:slug/show" component={ShowTask} />
         <Route exact path="/tasks/:slug/edit" component={EditTask} />
         <Route exact path="/tasks/create" component={CreateTask} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/signup" component={Signup} />
       </Switch>
     </Router>
   );
