@@ -33,6 +33,9 @@ en:
   hello: "Hello world"
   success: "%{entity} successfully created"
   not_found: "Task not found"
+  session:
+    could_not_auth: "Could not authenticate with the provided credentials."
+    incorrect_credentials: "Incorrect credentials, try again."
   task:
     slug:
       immutable: "is immutable!"
