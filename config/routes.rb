@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   defaults format: :json do
     resources :tasks, except: %i[new edit], param: :slug
     resources :users, only: %i[index create]
-    resources :sessions, only: %i[create destroy]
+    resource :sessions, only: %i[create destroy]
   end
 
   root "home#index"

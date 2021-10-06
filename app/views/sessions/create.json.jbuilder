@@ -1,1 +1,4 @@
-json.extract! @user, :id, :name, :authentication_token
+json.extract! @user,
+  :id,
+  :name,
+  :authentication_token
