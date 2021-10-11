@@ -33,6 +33,8 @@ en:
   hello: "Hello world"
   success: "%{entity} successfully created"
   not_found: "Task not found"
+  authorization:
+    denied: "Access denied. You are not authorized to perform this action."
   session:
     could_not_auth: "Could not authenticate with the provided credentials."
     incorrect_credentials: "Incorrect credentials, try again."
