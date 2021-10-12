@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_many :created_tasks, foreign_key: :task_owner_id, class_name: "Task"
   has_many :tasks, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_secure_password
   has_secure_token :authentication_token
   validates :name, presence: true, length: { maximum: 35 }
@@ -25,9 +26,9 @@ class User < ApplicationRecord
     end
 
     def assign_tasks_to_task_owners
-      tasks_whose_owner_is_not_current_user = assigned_tasks.select { |task| task.task_owner_id != id }
+      tasks_whose_owner_is_not_current_user = tasks.select { |task| task.task_owner_id != id }
       tasks_whose_owner_is_not_current_user.each do |task|
-        task.update(assigned_user_id: task.task_owner_id)
+        task.update(user_id: task.task_owner_id)
       end
     end
 end
