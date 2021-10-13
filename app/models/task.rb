@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  RESTRICTED_ATTRIBUTES = %i[title user_id]
+  enum progress: { pending: 0, completed: 1 }
   belongs_to :user
   belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
   has_many :comments, dependent: :destroy
