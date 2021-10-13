@@ -2,6 +2,7 @@
 
 class Task < ApplicationRecord
   RESTRICTED_ATTRIBUTES = %i[title user_id]
+  enum status: { unstarred: 0, starred: 1 }
   enum progress: { pending: 0, completed: 1 }
   belongs_to :user
   belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
@@ -34,5 +35,16 @@ class Task < ApplicationRecord
       if slug_changed? && self.persisted?
         error.add(:slug, t("task.slug.immutable"))
       end
+    end
+
+    def self.of_status(progress)
+      if progress == :pending
+        starred = pending.starred.order("updated_at DESC")
+        unstarred = pending.unstarred.order("updated_at DESC")
+      else
+        starred = completed.starred.order("updated_at DESC")
+        unstarred = completed.unstarred.order("updated_at DESC")
+      end
+      starred + unstarred
     end
 end
