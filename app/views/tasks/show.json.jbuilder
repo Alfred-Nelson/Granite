@@ -9,7 +9,7 @@ json.task do
     json.name @task.user.name
   end
 
-  json.comments @task.comments do |comment|
+  json.comments @comments do |comment|
     json.extract! comment,
       :id,
       :content,
