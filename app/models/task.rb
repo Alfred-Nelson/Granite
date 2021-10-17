@@ -10,8 +10,8 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: Constants::MAX_TITLE_LENGTH }
   validates :slug, uniqueness: true
   validate :slug_not_changed
-  validate :user_is_present
   before_create :set_slug
+  after_create :log_task_details
 
   private
 
@@ -38,12 +38,6 @@ class Task < ApplicationRecord
       end
     end
 
-    def user_is_present
-      if user_id == nil
-        errors.add(:user_id, "must exist")
-      end
-    end
-
     def self.of_status(progress)
       if progress == :pending
         starred = pending.starred.order("updated_at DESC")
@@ -55,22 +49,7 @@ class Task < ApplicationRecord
       starred + unstarred
     end
 
-    def test_error_raised_for_duplicate_slug
-      another_test_task = Task.create!(title: "another test task", assigned_user: @user, task_owner: @user)
-
-      assert_raises ActiveRecord::RecordInvalid do
-        another_test_task.update!(slug: @task.slug)
-      end
-
-      error_msg = another_test_task.errors.full_messages.to_sentence
-      assert_match t("task.slug.immutable"), error_msg
-    end
-
-    def test_updating_title_does_not_update_slug
-      assert_no_changes -> { @task.reload.slug } do
-        updated_task_title = "updated task title"
-        @task.update!(title: updated_task_title)
-        assert_equal updated_task_title, @task.title
-      end
+    def log_task_details
+      TaskLoggerJob.perform_later(self)
     end
 end

@@ -38,6 +38,12 @@ class TaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_task_count_increases_on_deleting
+    assert_difference ["Task.count"], -1 do
+      @task.destroy
+    end
+  end
+
   def test_task_should_not_be_valid_without_title
     @task.title = ""
     assert @task.invalid?
@@ -71,6 +77,25 @@ class TaskTest < ActiveSupport::TestCase
 
     assert_equal "fishing", first_task.slug
     assert_equal "fish", second_task.slug
+  end
+
+  def test_error_raised_for_duplicate_slug
+    another_test_task = Task.create!(title: "another test task", user: @user, task_owner: @user)
+
+    assert_raises ActiveRecord::RecordInvalid do
+      another_test_task.update!(slug: @task.slug)
+    end
+
+    error_msg = another_test_task.errors.full_messages.to_sentence
+    assert_match t("task.slug.immutable"), error_msg
+  end
+
+  def test_updating_title_does_not_update_slug
+    assert_no_changes -> { @task.reload.slug } do
+      updated_task_title = "updated task title"
+      @task.update!(title: updated_task_title)
+      assert_equal updated_task_title, @task.title
+    end
   end
 
   def test_slug_suffix_is_maximum_slug_count_plus_one_if_two_or_more_slugs_already_exist

@@ -5,6 +5,8 @@ require "test_helper"
 class CommentTest < ActiveSupport::TestCase
   def setup
     @comment = build(:comment)
+    @user = create(:user)
+    @task = create(:task)
   end
 
   def test_comment_should_be_invalid_without_content
@@ -18,6 +20,8 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   def test_valid_comment_should_be_saved
+    @comment.task = @task
+    @comment.user = @user
     assert_difference "Comment.count" do
       @comment.save
     end
