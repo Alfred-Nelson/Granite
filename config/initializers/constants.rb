@@ -5,4 +5,5 @@ module Constants
   DB_REGEX_OPERATOR = is_sqlite_db ? "REGEXP" : "~*"
   MAX_COMMENT_LENGTH = 120
   MAX_TITLE_LENGTH = 50
+  DEFAULT_NOTIFICATION_DELIVERY_HOUR = 10
 end

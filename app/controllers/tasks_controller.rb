@@ -57,7 +57,7 @@ class TasksController < ApplicationController
     def load_task
       @task = Task.find_by(slug: params[:slug])
       unless @task
-        render status: :not_found, json: { error: t("not_found") }
+        render status: :not_found, json: { error: t("not_found", entity: "Task") }
       end
     end
 

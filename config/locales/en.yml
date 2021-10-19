@@ -32,7 +32,8 @@
 en:
   hello: "Hello world"
   success: "%{entity} successfully created"
-  not_found: "Task not found"
+  successfully_updated: "%{entity} was successfully updated!"
+  not_found: "%{entity} not found"
   authorization:
     denied: "Access denied. You are not authorized to perform this action."
   session:
@@ -41,3 +42,9 @@ en:
   task:
     slug:
       immutable: "is immutable!"
+  preference:
+    notification_delivery_hour:
+      range: "value should be between 0 and 23"
+  date:
+    invalid: "must be a valid date"
+    cant_be_in_past: "can't be in the past"

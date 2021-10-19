@@ -10,6 +10,7 @@ import Login from "components/Authentication/Login";
 import Signup from "components/Authentication/Signup";
 import PrivateRoute from "components/Common/PrivateRoute";
 import Dashboard from "components/Dashboard";
+import MyPreferences from "components/MyPreferences";
 import PageLoader from "components/PageLoader";
 import CreateTask from "components/Tasks/CreateTask";
 import EditTask from "components/Tasks/EditTask";
@@ -39,6 +40,7 @@ const App = () => {
     <Router>
       <ToastContainer />
       <Switch>
+        <Route exact path="/my/preferences" component={MyPreferences} />
         <Route exact path="/tasks/:slug/show" component={ShowTask} />
         <Route exact path="/tasks/:slug/edit" component={EditTask} />
         <Route exact path="/tasks/create" component={CreateTask} />
