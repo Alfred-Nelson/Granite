@@ -3,7 +3,7 @@
 class TodoNotificationsWorker
   include Sidekiq::Worker
 
-  def perform(*args)
+  def perform
     # Do something
     todo_notification_service = TodoNotificationService.new
     todo_notification_service.process

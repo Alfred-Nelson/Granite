@@ -3,7 +3,7 @@
 class UserNotificationsWorker
   include Sidekiq::Worker
 
-  def perform(*args)
+  def perform(user_id)
     # Do something
     TaskMailer.delay.pending_tasks_email(user_id)
   end
